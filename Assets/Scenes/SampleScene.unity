@@ -911,11 +911,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c19fc4a8ad270246a538a4e149f52e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretShooter
-  target: {fileID: 1512131973}
   muzzlePoint: {fileID: 1343209892}
-  projectilePrefab: {fileID: 7746423496660085210, guid: 1a2feba643dad80439dbe3cf434df773, type: 3}
+  projectilePrefab: {fileID: 2515714463571295753, guid: 1a2feba643dad80439dbe3cf434df773, type: 3}
+  target: {fileID: 1512131973}
   fireAngleThreshold: 5
-  fireInterval: 0.5
+  fireInterval: 0.1
 --- !u!114 &1306068994
 MonoBehaviour:
   m_ObjectHideFlags: 0

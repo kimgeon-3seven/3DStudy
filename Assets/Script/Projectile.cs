@@ -1,19 +1,46 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Projectile : MonoBehaviour
 {
     public float projectileSpeed = 12f;
     public float projectileLifeTime = 3f;
 
-    private void Start()
+    public float _currentLifeTime = 0f;
+
+    // 내가 돌아갈 창고(주소)
+    private IObjectPool<Projectile> _managedPool;
+
+    // 창고 주소를 설정해주는 함수 (TurretShooter가 호출해줄 것임)
+    public void SetManagedPool(IObjectPool<Projectile> pool)
     {
-        // 생성된 후 projectileLifeTime 초가 지나면 자기 자신을 파괴합니다.
-        Destroy(gameObject, projectileLifeTime);
+        _managedPool = pool;
+    }
+
+    private void OnEnable()
+    {
+        _currentLifeTime = 0f; // 활성화될 때마다 생명 시간 초기화
     }
 
     private void Update()
     {
-        // Z축(앞) 방향으로 매 프레임 이동합니다.
         transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+
+        _currentLifeTime += Time.deltaTime;
+        if (_currentLifeTime >= projectileLifeTime)
+        {
+            ReturnToPool();
+        }
+           
     }
+
+    private void ReturnToPool()
+    {
+        // Destroy 대신 창고로 반납
+        if (_managedPool != null)
+            _managedPool.Release(this);
+        else
+            Destroy(gameObject);
+    }
+
 }
