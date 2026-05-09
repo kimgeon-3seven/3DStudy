@@ -8,10 +8,10 @@ public class Projectile : MonoBehaviour
 
     public float _currentLifeTime = 0f;
 
-    // 내가 돌아갈 창고(주소)
+    
     private IObjectPool<Projectile> _managedPool;
 
-    // 창고 주소를 설정해주는 함수 (TurretShooter가 호출해줄 것임)
+
     public void SetManagedPool(IObjectPool<Projectile> pool)
     {
         _managedPool = pool;
@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
            
     }
 
-    private void ReturnToPool()
+    public void ReturnToPool()
     {
         // Destroy 대신 창고로 반납
         if (_managedPool != null)

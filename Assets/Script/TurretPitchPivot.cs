@@ -10,13 +10,22 @@ public class TurretPitchPivot : MonoBehaviour
     public float maxPitch = 20f;
 
     [Header("Target")]
+    public TurretShooter myShooter;
+
     public Transform target;
 
     private float currentPitch = 0f;
 
     private void Update()
     {
-        if (target == null) return;
+        if (target == null || !target.gameObject.activeInHierarchy)
+        {
+           if(myShooter != null)
+            {
+                target = myShooter.target;
+            }
+            if (target == null) return; // 타겟이 여전히 없으면 종료
+        }
 
         
         Vector3 localTargetPos = transform.parent.InverseTransformPoint(target.position);
